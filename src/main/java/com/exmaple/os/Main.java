@@ -5,15 +5,15 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-
-
         List<Integer> list = new LinkedList<>();
-        final int capacity = 8;
+        final int capacity = 4;
 
-        Thread thread1 = new Producer(list, capacity, "Producer");
-        Thread thread2 = new Consumer(list, "Consumer1");
+        Thread producer = new Producer(list, capacity, "Producer");
+        producer.start();
 
-        thread1.start();
-        thread2.start();
+        for(int i = 0 ; i < 4; i++) {
+            Thread consumer = new Consumer(list, "Consumer" + i);
+            consumer.start();
+        }
     }
 }

@@ -1,6 +1,7 @@
 package com.exmaple.os;
 
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Consumer extends Thread {
     private final List<Integer> list;
@@ -12,7 +13,14 @@ public class Consumer extends Thread {
 
     @Override
     public void run() {
+
         while (true) {
+            try {
+                Thread.sleep(ThreadLocalRandom.current().nextInt(50 ,50+1));
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+
             synchronized (list) {
                 while (list.isEmpty()) {
                     System.out.println("list is empty " + Thread.currentThread().getName() + " is waiting");
@@ -24,13 +32,20 @@ public class Consumer extends Thread {
                 }
 
                 int val = list.remove(0);
+                System.out.println(Thread.currentThread().getName() + " consumed: " + val);
 
-                System.out.println("Consumer consumed: " + val);
+                if(list.isEmpty()) {
+                    list.notifyAll();
 
-                list.notify();
+                    try {
+                        list.wait();
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
 
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(500);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }

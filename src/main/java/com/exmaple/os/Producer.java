@@ -27,14 +27,15 @@ public class Producer extends Thread {
                     }
                 }
 
-                System.out.println("Producer produced: " + value);
+                while(list.size() < capacity) {
+                    System.out.println("Producer produced: " + value);
+                    list.add(value++);
+                }
 
-                list.add(value++);
-
-                list.notify();
+                list.notifyAll();
 
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(500);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
