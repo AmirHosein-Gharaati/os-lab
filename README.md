@@ -93,7 +93,7 @@ __Note that the `philosopher` and `state` parameters are just for tracing the pr
 
 For picking down the chopstick:
 ```java
-public void pickUp(Philosopher philosopher, State state){}
+public void putDown(Philosopher philosopher, State state){}
 ```
 __Note that the `philosopher` and `state` parameters are just for tracing the process. You don't need it actually.__
 
