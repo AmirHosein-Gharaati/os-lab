@@ -104,7 +104,7 @@ properties:
 + `leftChopstick`: a chopstick object (which is the left chopstick of the philosopher)
 + `rightChopstick`: a chopstick object (which is the right chopstick of the philosopher)
 + `eatingCounter`: number of eating times of the philosopher
-+ `isHungry`: a boolean which states if the philospher is hungry or not. The initial value is `false`
++ `isHungry`: a boolean which states if the philosopher is hungry or not. The initial value is `true`
 
 optional:
 + `random`: a `Random` object for simulating eating of everything within a time frame
@@ -118,7 +118,7 @@ methods:
 ### Main
 Initialize the chopsticks and philosophers. Using the `ExecutorService`, execute the process of each philosopher in a separte thread.
 
-After executing all threads, wait for `SIMULATION_RUNNING_TIME`. After that, set each philosopher `isHungry` property to `true` since we don't want to continue the actions of philosophers.
+After executing all threads, wait for `SIMULATION_RUNNING_TIME`. After that, set each philosopher `isHungry` property to `false` since we don't want to continue the actions of philosophers.
 
 Make sure to wait for executor service to be terminated.
 
