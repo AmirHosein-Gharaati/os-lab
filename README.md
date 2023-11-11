@@ -98,7 +98,7 @@ public void putDown(Philosopher philosopher, State state){}
 __Note that the `philosopher` and `state` parameters are just for tracing the process. You don't need it actually.__
 
 
-### Philosophers
+### Philosopher
 properties:
 + `id`: an integer which is the id of a philosopher
 + `leftChopstick`: a chopstick object (which is the left chopstick of the philosopher)
