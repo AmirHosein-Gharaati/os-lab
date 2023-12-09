@@ -78,7 +78,7 @@ It is the default mount point for removable storage media such as cdrom/dvd and 
 
 
 
-**TODO** - List the contents of the /var directory using the ls command learned in the previous milestone
+**TODO** - List the contents of the /var directory in long format using the ls command learned in the previous section.
 
 ### Absolute path
 
