@@ -385,6 +385,51 @@ One way to view the kernel’s boot and runtime diagnostic messages is using the
 dmesg
 ```
 
-## How User Space Starts
+## Write script to take image at startup
 
-TODO
+Create a bash script:
+
+```bash
+#!/bin/bash
+
+# Generate a timestamp
+timestamp=$(date)
+
+# Log a message
+echo "Capturing image at $timestamp" >> /var/log/capture.log
+
+# Capture image using ffmpeg with timestamped filename
+ffmpeg -f video4linux2 -s 640x480 -i /dev/video0 -ss 0:0:2 -frames 1 "/tmp/out_$timestamp.jpg"
+```
+
+Save the script and name it `capture.sh`, and make it executable:
+
+`chmod +x capture.sh`
+
+Now, create a systemd service file, let's name it capture.service. Open a text editor and add the following:
+```ini
+[Unit]
+Description=Capture Image at Startup
+
+[Service]
+ExecStart=/path/to/capture.sh
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Make sure to replace /path/to/capture.sh with the actual path to your capture.sh script.
+
+Move `capture.service` to `/etc/systemd/system/`
+
+Reload systemd to pick up the new service
+
+```bash
+sudo systemctl daemon-reload
+```
+
+```bash
+sudo systemctl enable capture.service
+```
+
+Restart your computer and see the results.
